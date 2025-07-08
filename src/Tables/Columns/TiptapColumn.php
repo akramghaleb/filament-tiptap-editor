@@ -25,7 +25,7 @@ class TiptapColumn extends Column
      * Make the tagMap available in the view (if you need it),
      * and also expose our helper.
      */
-    protected function getViewData(): array
+    public function getViewData(): array
     {
         return array_merge(parent::getViewData(), [
             'tagMap'       => $this->tagMap,
