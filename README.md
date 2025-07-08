@@ -9,7 +9,7 @@ A Tiptap integration for Filament Admin/Forms.
 Install the package via composer
 
 ```bash
-composer require akramghaleb/filament-tiptap-editor:"^3.0"
+composer require akramghaleb/filament-tiptap-editor
 ```
 
 In an effort to align with Filament's theming methodology you will need to use a custom theme to use this plugin.
@@ -20,7 +20,7 @@ In an effort to align with Filament's theming methodology you will need to use a
 1. Import the plugin's stylesheet and tippy.js stylesheet (if not already included) into your theme's css file.
 
 ```css
-@import '<path-to-vendor>/awcodes/filament-tiptap-editor/resources/css/plugin.css';
+@import '<path-to-vendor>/akramghaleb/filament-tiptap-editor/resources/css/plugin.css';
 ```
 
 2. Add the plugin's views to your `tailwind.config.js` file.
@@ -219,7 +219,7 @@ The Link, Media and Grid Builder modals are built using Filament Form Component 
 
 You may override the default Link modal with your own Action and assign to the `link_action` key in the config file. Make sure the default name for your action is `filament_tiptap_link`.
 
-See `vendor/awcodes/filament-tiptap-editor/src/Actions/LinkAction.php` for implementation.
+See `vendor/akramghaleb/filament-tiptap-editor/src/Actions/LinkAction.php` for implementation.
 
 ### Media Modal
 
@@ -231,19 +231,19 @@ The Media Modal can make use of 3 attributes not exposed by default:
 - `sizes` goes alongside `srcset` to specify sizing rules for responsive images. [Docs](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/sizes)
 - `media` provides support for an arbitrary ID value to better integrate with Media stored within a Database.
 
-See `vendor/awcodes/filament-tiptap-editor/src/Actions/MediaAction.php` for implementation.
+See `vendor/akramghaleb/filament-tiptap-editor/src/Actions/MediaAction.php` for implementation.
 
 ### Grid Builder Modal
 
 You may override the default Grid Builder modal with your own Action and assign to the `grid_builder_action` key in the config file. Make sure the default name for your action is `filament_tiptap_grid`.
 
-See `vendor/awcodes/filament-tiptap-editor/src/Actions/GridBuilderAction.php` for implementation.
+See `vendor/akramghaleb/filament-tiptap-editor/src/Actions/GridBuilderAction.php` for implementation.
 
 ### OEmbed Modal
 
 You may override the default OEmbed modal with your own Action and assign to the `oembed_action` key in the config file. Make sure the default name for your action is `filament_tiptap_oembed`.
 
-See `vendor/awcodes/filament-tiptap-editor/src/Actions/OEmbedAction.php` for implementation.
+See `vendor/akramghaleb/filament-tiptap-editor/src/Actions/OEmbedAction.php` for implementation.
 
 ### Initial height of editor field
 
