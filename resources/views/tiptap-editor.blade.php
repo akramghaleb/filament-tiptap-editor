@@ -275,13 +275,7 @@
         </div>
     </div>
     @if (!empty($options))
-        @push('styles')
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/treeselectjs@0.13.1/dist/treeselectjs.css" />
-        @endpush
-
         @push('scripts')
-            <script src="https://cdn.jsdelivr.net/npm/treeselectjs@0.13.1/dist/treeselectjs.umd.js"></script>
-
             <script>
                 const options = @json($options);
 
