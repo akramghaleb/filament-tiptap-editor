@@ -2,6 +2,18 @@
 
 A Tiptap integration for Filament Admin/Forms.
 
+## ⚒️ Forked From
+
+This package is a **customized** version of [awcodes/filament-tiptap-editor](https://github.com/awcodes/filament-tiptap-editor).  
+We’ve extended the original with:
+
+- 💠 **Select Tree Option**  
+  A hierarchical selection UI for choosing content blocks or document nodes directly from a tree view.  
+- 📊 **TipTap Column in Table**  
+  Adds a fully-functional TipTap editor inline as a column cell in your Filament tables.
+
+All other behaviors and styling by [awcodes/filament-tiptap-editor](https://github.com/awcodes/filament-tiptap-editor). 
+
 ![tiptap-editor-og](https://res.cloudinary.com/aw-codes/image/upload/w_1200,f_auto,q_auto/plugins/tiptap-editor/awcodes-tiptap-editor.jpg)
 
 ## Installation
