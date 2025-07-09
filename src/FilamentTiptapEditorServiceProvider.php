@@ -34,7 +34,9 @@ class FilamentTiptapEditorServiceProvider extends PackageServiceProvider
 
         $assets = [
             AlpineComponent::make('tiptap', __DIR__ . '/../resources/dist/filament-tiptap-editor.js'),
+            AlpineComponent::make('tiptap', __DIR__ . 'https://cdn.jsdelivr.net/npm/treeselectjs@0.13.1/dist/treeselectjs.umd.js'),
             Css::make('tiptap', __DIR__ . '/../resources/dist/filament-tiptap-editor.css')->loadedOnRequest(),
+            Css::make('tiptap', __DIR__ . 'https://cdn.jsdelivr.net/npm/treeselectjs@0.13.1/dist/treeselectjs.css')->loadedOnRequest(),
         ];
 
         if (config('filament-tiptap-editor.extensions_script')) {

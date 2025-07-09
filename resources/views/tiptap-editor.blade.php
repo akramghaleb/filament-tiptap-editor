@@ -275,6 +275,7 @@
         </div>
     </div>
     @if (!empty($options))
+
         @push('scripts')
             <script>
                 const options = @json($options);

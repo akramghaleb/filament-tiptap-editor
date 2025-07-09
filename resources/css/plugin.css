@@ -1,5 +1,4 @@
 @import './night-owl.css';
-@import 'treeselectjs/dist/treeselectjs.css';
 
 [wire\:key*="filament_tiptap_source"] {
     .fi-fo-component-ctn {
