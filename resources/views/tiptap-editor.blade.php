@@ -23,8 +23,6 @@
     $mentionDebounce = $getMentionDebounce();
     $mentionSearchStrategy = $getMentionSearchStrategy();
     $tippyPlacement = $getTippyPlacement();
-
-
 @endphp
 
 <x-dynamic-component
@@ -32,17 +30,13 @@
     :field="$field"
 >
     <div>
+        @if (!empty($options))
         <div class="flex gap-3">
-        {{-- Add Select Tree --}}
-            <link
-                rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/treeselectjs@0.13.1/dist/treeselectjs.css"
-            />
+            {{-- Select Tree Option --}}
             <div id="category-tree" class="form-control"></div>
             <input type="hidden" name="category_ids" id="category_ids" value="">
-
-
         </div>
+        @endif
         <div class="flex gap-3">
             <div class="flex-1">
                 <div
@@ -280,112 +274,103 @@
             </div>
         </div>
     </div>
+    @if (!empty($options))
+        @push('styles')
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/treeselectjs@0.13.1/dist/treeselectjs.css" />
+        @endpush
 
-    <script src="https://cdn.jsdelivr.net/npm/treeselectjs@0.13.1/dist/treeselectjs.umd.js"></script>
+        @push('scripts')
+            <script src="https://cdn.jsdelivr.net/npm/treeselectjs@0.13.1/dist/treeselectjs.umd.js"></script>
 
-    <script>
-        // dummy static options
-        const options = @json($options);
+            <script>
+                const options = @json($options);
 
-        function findName(options, val) {
-            // inner recursive lookup
-            function recurse(nodes) {
-                for (const node of nodes) {
-                    if (node.value === val) {
-                        return node.name;
-                    }
-                    if (node.children && node.children.length) {
-                        const found = recurse(node.children);
-                        if (found !== null) {
-                            return found;
+                function findName(options, val) {
+                    function recurse(nodes) {
+                        for (const node of nodes) {
+                            if (node.value === val) {
+                                return node.name;
+                            }
+                            if (node.children && node.children.length) {
+                                const found = recurse(node.children);
+                                if (found !== null) {
+                                    return found;
+                                }
+                            }
                         }
+                        return null;
                     }
-                }
-                return null;
-            }
 
-            const result = recurse(options);
-            return result === null ? val : result;
-        }
-
-
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('category-tree');
-
-            // if using CDN, Treeselect is on window; otherwise import it above
-            const Treeselect = window.Treeselect || require('treeselectjs').default;
-
-            const tree = new Treeselect({
-                parentHtmlContainer: container,
-                options: options,
-                value: [],             // pre-selected values, e.g. [4]
-                placeholder: 'Search…'
-            });
-
-            // capture selections into the hidden input
-            tree.srcElement.addEventListener('input', (e) => {
-                const selected = e.detail;
-                document.getElementById('category_ids').value = selected;
-
-                // console.log('Selected values:', e);
-
-                const tiptapEl = document.querySelector('.ProseMirror');
-
-                // test
-                //window.tiptapEditor.chain().focus().insertContent("<h1>Akram</h1>").run();
-
-
-                if (selected.length > 1) {
-                    const table = document.createElement('table');
-                    const thead = document.createElement('thead');
-                    const headerRow = document.createElement('tr');
-
-                    selected.forEach(id => {
-                        const th = document.createElement('th');
-                        th.textContent = findName(options, id);
-                        //th.textContent = id;
-                        headerRow.appendChild(th);
-                    });
-
-                    thead.appendChild(headerRow);
-                    table.appendChild(thead);
-
-                    const tbody = document.createElement('tbody');
-                    const bodyRow = document.createElement('tr');
-
-                    selected.forEach(id => {
-                        const td = document.createElement('td');
-                        const span = document.createElement('span');
-
-                        span.setAttribute('data-type', 'mergeTag');
-                        span.setAttribute('data-id', id);
-                        span.textContent = id;
-
-                        td.appendChild(span);
-                        bodyRow.appendChild(td);
-                    });
-
-                    tbody.appendChild(bodyRow);
-                    table.appendChild(tbody);
-                    //tiptapEl.appendChild(table);
-                    window.tiptapEditor.chain().focus().insertContent(table.outerHTML).run();
-                }else{
-                    selected.forEach(id => {
-                        const span = document.createElement('span');
-
-                        span.setAttribute('data-type', 'mergeTag');
-                        span.setAttribute('data-id', id);
-                        span.textContent = id;
-
-                        //tiptapEl.appendChild(span);
-                        window.tiptapEditor.chain().focus().insertContent(span.outerHTML).run();
-                    });
+                    const result = recurse(options);
+                    return result === null ? val : result;
                 }
 
-                tree.updateValue([]);
-                tree.mount();
-            });
-        });
-    </script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const container = document.getElementById('category-tree');
+
+                    const Treeselect = window.Treeselect || require('treeselectjs').default;
+
+                    const tree = new Treeselect({
+                        parentHtmlContainer: container,
+                        options: options,
+                        value: [],             // pre-selected values, e.g. [4]
+                        placeholder: 'Search…'
+                    });
+
+
+                    tree.srcElement.addEventListener('input', (e) => {
+                        const selected = e.detail;
+                        document.getElementById('category_ids').value = selected;
+
+                        if (selected.length > 1) {
+                            const table = document.createElement('table');
+                            const thead = document.createElement('thead');
+                            const headerRow = document.createElement('tr');
+
+                            selected.forEach(id => {
+                                const th = document.createElement('th');
+                                th.textContent = findName(options, id);
+                                headerRow.appendChild(th);
+                            });
+
+                            thead.appendChild(headerRow);
+                            table.appendChild(thead);
+
+                            const tbody = document.createElement('tbody');
+                            const bodyRow = document.createElement('tr');
+
+                            selected.forEach(id => {
+                                const td = document.createElement('td');
+                                const span = document.createElement('span');
+
+                                span.setAttribute('data-type', 'mergeTag');
+                                span.setAttribute('data-id', id);
+                                span.textContent = id;
+
+                                td.appendChild(span);
+                                bodyRow.appendChild(td);
+                            });
+
+                            tbody.appendChild(bodyRow);
+                            table.appendChild(tbody);
+                            window.tiptapEditor.chain().focus().insertContent(table.outerHTML).run();
+                        }else{
+                            selected.forEach(id => {
+                                const span = document.createElement('span');
+
+                                span.setAttribute('data-type', 'mergeTag');
+                                span.setAttribute('data-id', id);
+                                span.textContent = id;
+
+                                window.tiptapEditor.chain().focus().insertContent(span.outerHTML).run();
+                            });
+                        }
+
+                        tree.updateValue([]);
+                        tree.mount();
+                    });
+                });
+            </script>
+        @endpush
+    @endif
 </x-dynamic-component>
