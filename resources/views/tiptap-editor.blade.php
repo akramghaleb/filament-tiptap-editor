@@ -277,7 +277,6 @@
     @if (!empty($options))
         @push('scripts')
             <script>
-                import Treeselect from 'treeselectjs'
                 const options = @json($options);
 
                 function findName(options, val) {
