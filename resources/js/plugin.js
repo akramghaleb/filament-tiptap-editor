@@ -60,7 +60,9 @@ import {
 import { lowlight } from "lowlight/lib/common";
 import { HexBase } from 'vanilla-colorful/lib/entrypoints/hex';
 import { isEqual } from "lodash";
-import Treeselect from 'treeselectjs';
+import Treeselect from "treeselectjs";
+
+window.TreeSelect = Treeselect;
 
 customElements.define('tiptap-hex-color-picker', HexBase);
 
