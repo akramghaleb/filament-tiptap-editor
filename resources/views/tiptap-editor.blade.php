@@ -302,7 +302,7 @@
                 document.addEventListener('DOMContentLoaded', () => {
                     const container = document.getElementById('category-tree');
 
-                    //const Treeselect = Treeselect || require('treeselectjs').default;
+                    const Treeselect = window.Treeselect || require('treeselectjs').default;
 
                     const tree = new Treeselect({
                         parentHtmlContainer: container,
