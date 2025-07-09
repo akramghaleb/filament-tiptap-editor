@@ -277,6 +277,7 @@
     @if (!empty($options))
         @push('scripts')
             <script>
+                import Treeselect from 'treeselectjs'
                 const options = @json($options);
 
                 function findName(options, val) {
@@ -302,7 +303,7 @@
                 document.addEventListener('DOMContentLoaded', () => {
                     const container = document.getElementById('category-tree');
 
-                    const Treeselect = window.Treeselect || require('treeselectjs').default;
+                    //const Treeselect = Treeselect || require('treeselectjs').default;
 
                     const tree = new Treeselect({
                         parentHtmlContainer: container,
