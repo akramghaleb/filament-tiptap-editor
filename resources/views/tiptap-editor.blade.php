@@ -275,97 +275,16 @@
         </div>
     </div>
     @if (!empty($options))
-
+        @push('styles')
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/treeselectjs@0.13.1/dist/treeselectjs.css">
+        @endpush
         @push('scripts')
+            <script src="https://cdn.jsdelivr.net/npm/treeselectjs@0.13.1/dist/treeselectjs.umd.js"></script>
             <script>
-                const options = @json($options);
-
-                function findName(options, val) {
-                    function recurse(nodes) {
-                        for (const node of nodes) {
-                            if (node.value === val) {
-                                return node.name;
-                            }
-                            if (node.children && node.children.length) {
-                                const found = recurse(node.children);
-                                if (found !== null) {
-                                    return found;
-                                }
-                            }
-                        }
-                        return null;
-                    }
-
-                    const result = recurse(options);
-                    return result === null ? val : result;
-                }
-
-                document.addEventListener('DOMContentLoaded', () => {
-                    const container = document.getElementById('category-tree');
-
-                    const Treeselect = window.Treeselect || require('treeselectjs').default;
-
-                    const tree = new Treeselect({
-                        parentHtmlContainer: container,
-                        options: options,
-                        value: [],             // pre-selected values, e.g. [4]
-                        placeholder: 'Search…'
-                    });
-
-
-                    tree.srcElement.addEventListener('input', (e) => {
-                        const selected = e.detail;
-                        document.getElementById('category_ids').value = selected;
-
-                        if (selected.length > 1) {
-                            const table = document.createElement('table');
-                            const thead = document.createElement('thead');
-                            const headerRow = document.createElement('tr');
-
-                            selected.forEach(id => {
-                                const th = document.createElement('th');
-                                th.textContent = findName(options, id);
-                                headerRow.appendChild(th);
-                            });
-
-                            thead.appendChild(headerRow);
-                            table.appendChild(thead);
-
-                            const tbody = document.createElement('tbody');
-                            const bodyRow = document.createElement('tr');
-
-                            selected.forEach(id => {
-                                const td = document.createElement('td');
-                                const span = document.createElement('span');
-
-                                span.setAttribute('data-type', 'mergeTag');
-                                span.setAttribute('data-id', id);
-                                span.textContent = id;
-
-                                td.appendChild(span);
-                                bodyRow.appendChild(td);
-                            });
-
-                            tbody.appendChild(bodyRow);
-                            table.appendChild(tbody);
-                            window.tiptapEditor.chain().focus().insertContent(table.outerHTML).run();
-                        }else{
-                            selected.forEach(id => {
-                                const span = document.createElement('span');
-
-                                span.setAttribute('data-type', 'mergeTag');
-                                span.setAttribute('data-id', id);
-                                span.textContent = id;
-
-                                window.tiptapEditor.chain().focus().insertContent(span.outerHTML).run();
-                            });
-                        }
-
-                        tree.updateValue([]);
-                        tree.mount();
-                    });
-                });
+                // Pass options to JS
+                window.treeSelectOptions = @json($options);
             </script>
+            <script src="{{ asset('js/category-tree.js') }}"></script>
         @endpush
     @endif
 </x-dynamic-component>

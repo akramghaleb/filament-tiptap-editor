@@ -34,9 +34,7 @@ class FilamentTiptapEditorServiceProvider extends PackageServiceProvider
 
         $assets = [
             AlpineComponent::make('tiptap', __DIR__ . '/../resources/dist/filament-tiptap-editor.js'),
-            AlpineComponent::make('tiptap', __DIR__ . 'https://cdn.jsdelivr.net/npm/treeselectjs@0.13.1/dist/treeselectjs.umd.js'),
             Css::make('tiptap', __DIR__ . '/../resources/dist/filament-tiptap-editor.css')->loadedOnRequest(),
-            Css::make('tiptap', __DIR__ . 'https://cdn.jsdelivr.net/npm/treeselectjs@0.13.1/dist/treeselectjs.css')->loadedOnRequest(),
         ];
 
         if (config('filament-tiptap-editor.extensions_script')) {
@@ -46,6 +44,11 @@ class FilamentTiptapEditorServiceProvider extends PackageServiceProvider
         if (config('filament-tiptap-editor.extensions_styles')) {
             $assets[] = Css::make('tiptap-custom-extension-styles', Vite::asset(config('filament-tiptap-editor.extensions_styles')));
         }
+
+        $assets[] = Js::make(
+            'filament-tiptap-category-tree',
+            asset('/../resources/js/category-tree.js')
+        );
 
         FilamentAsset::register($assets, 'akramghaleb/tiptap-editor');
     }
