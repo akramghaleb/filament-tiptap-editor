@@ -45,11 +45,6 @@ class FilamentTiptapEditorServiceProvider extends PackageServiceProvider
             $assets[] = Css::make('tiptap-custom-extension-styles', Vite::asset(config('filament-tiptap-editor.extensions_styles')));
         }
 
-        $assets[] = Js::make(
-            'filament-tiptap-category-tree',
-            asset('/../resources/js/category-tree.js')
-        );
-
         FilamentAsset::register($assets, 'akramghaleb/tiptap-editor');
     }
 }
