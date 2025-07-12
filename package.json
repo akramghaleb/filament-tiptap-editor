@@ -71,8 +71,5 @@
     "tailwindcss": "^3.3.3",
     "tippy.js": "^6.3.7",
     "vanilla-colorful": "^0.7.2"
-  },
-  "dependencies": {
-    "treeselectjs": "^0.13.1"
   }
 }
