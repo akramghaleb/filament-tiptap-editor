@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const options = window.treeSelectOptions || [];
 
+    console.log('Treeselect is', options);
+
     function findName(options, val) {
         function recurse(nodes) {
             for (const node of nodes) {
@@ -22,7 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const container = document.getElementById('category-tree');
-    const Treeselect = window.Treeselect || require('treeselectjs').default;
+    const Treeselect = window.Treeselect;
+    if (!Treeselect) {
+        console.error('Treeselect not found — did you include the UMD script?');
+        return;
+    }
 
     const tree = new Treeselect({
         parentHtmlContainer: container,

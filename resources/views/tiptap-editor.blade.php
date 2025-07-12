@@ -26,37 +26,37 @@
 @endphp
 
 <x-dynamic-component
-    :component="$getFieldWrapperView()"
-    :field="$field"
+        :component="$getFieldWrapperView()"
+        :field="$field"
 >
     <div>
         @if (!empty($options))
-        <div class="flex gap-3">
-            {{-- Select Tree Option --}}
-            <div id="category-tree" class="form-control"></div>
-            <input type="hidden" name="category_ids" id="category_ids" value="">
-        </div>
+            <div class="flex gap-3">
+                {{-- Select Tree Option --}}
+                <div id="category-tree" class="form-control"></div>
+                <input type="hidden" name="category_ids" id="category_ids" value="">
+            </div>
         @endif
         <div class="flex gap-3">
             <div class="flex-1">
                 <div
-                    @class([
-                        'tiptap-editor rounded-md relative text-gray-950 bg-white shadow-sm ring-1 dark:bg-white/5 dark:text-white',
-                        'ring-gray-950/10 dark:ring-white/20' => ! $errors->has($statePath),
-                        'ring-danger-600 dark:ring-danger-600' => $errors->has($statePath),
-                    ])
-                    x-data="{}"
-                    @if (! $shouldDisableStylesheet())
-                        x-load-css="[@js(\Filament\Support\Facades\FilamentAsset::getStyleHref('tiptap', 'akramghaleb/tiptap-editor'))]"
-                    @endif
+                        @class([
+                            'tiptap-editor rounded-md relative text-gray-950 bg-white shadow-sm ring-1 dark:bg-white/5 dark:text-white',
+                            'ring-gray-950/10 dark:ring-white/20' => ! $errors->has($statePath),
+                            'ring-danger-600 dark:ring-danger-600' => $errors->has($statePath),
+                        ])
+                        x-data="{}"
+                        @if (! $shouldDisableStylesheet())
+                            x-load-css="[@js(\Filament\Support\Facades\FilamentAsset::getStyleHref('tiptap', 'akramghaleb/tiptap-editor'))]"
+                        @endif
                 >
                     <div
-                        wire:ignore
-                        x-load
-                        x-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('tiptap', 'akramghaleb/tiptap-editor') }}"
-                        class="relative z-0 tiptap-wrapper rounded-md bg-white dark:bg-gray-900 focus-within:ring focus-within:ring-primary-500 focus-within:z-10"
-                        x-bind:class="{ 'tiptap-fullscreen': fullScreenMode }"
-                        x-data="tiptap({
+                            wire:ignore
+                            x-load
+                            x-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('tiptap', 'akramghaleb/tiptap-editor') }}"
+                            class="relative z-0 tiptap-wrapper rounded-md bg-white dark:bg-gray-900 focus-within:ring focus-within:ring-primary-500 focus-within:z-10"
+                            x-bind:class="{ 'tiptap-fullscreen': fullScreenMode }"
+                            x-data="tiptap({
                             state: $wire.{{ $applyStateBindingModifiers("\$entangle('{$statePath}')", isOptimisticallyLive: true) }},
                             statePath: '{{ $statePath }}',
                             tools: @js($tools),
@@ -86,24 +86,24 @@
                             mentionSearchStrategy: @js($mentionSearchStrategy),
                             linkProtocols: @js(config('filament-tiptap-editor.link_protocols')),
                         })"
-                        x-init="$nextTick(() => { init(); window.tiptapEditor = editor(); })"
-                        x-on:click.away="blur()"
-                        x-on:keydown.escape="fullScreenMode = false"
-                        x-on:insert-content.window="insertContent($event)"
-                        x-on:unset-link.window="$event.detail.statePath === '{{ $statePath }}' ? unsetLink() : null"
-                        x-on:update-editor-content.window="updateEditorContent($event)"
-                        x-on:refresh-tiptap-editors.window="refreshEditorContent()"
-                        x-on:dragged-block.stop="$wire.mountFormComponentAction('{{ $statePath }}', 'insertBlock', {
+                            x-init="$nextTick(() => { init(); window.tiptapEditor = editor(); })"
+                            x-on:click.away="blur()"
+                            x-on:keydown.escape="fullScreenMode = false"
+                            x-on:insert-content.window="insertContent($event)"
+                            x-on:unset-link.window="$event.detail.statePath === '{{ $statePath }}' ? unsetLink() : null"
+                            x-on:update-editor-content.window="updateEditorContent($event)"
+                            x-on:refresh-tiptap-editors.window="refreshEditorContent()"
+                            x-on:dragged-block.stop="$wire.mountFormComponentAction('{{ $statePath }}', 'insertBlock', {
                             type: $event.detail.type,
                             coordinates: $event.detail.coordinates,
                         })"
-                        x-on:dragged-merge-tag.stop="insertMergeTag($event)"
-                        x-on:insert-block.window="insertBlock($event)"
-                        x-on:update-block.window="updateBlock($event)"
-                        x-on:open-block-settings.window="openBlockSettings($event)"
-                        x-on:delete-block.window="deleteBlock($event)"
-                        x-on:locale-change.window="updateLocale($event)"
-                        x-trap.noscroll="fullScreenMode"
+                            x-on:dragged-merge-tag.stop="insertMergeTag($event)"
+                            x-on:insert-block.window="insertBlock($event)"
+                            x-on:update-block.window="updateBlock($event)"
+                            x-on:open-block-settings.window="openBlockSettings($event)"
+                            x-on:delete-block.window="deleteBlock($event)"
+                            x-on:locale-change.window="updateLocale($event)"
+                            x-trap.noscroll="fullScreenMode"
                     >
                         @if (! $isDisabled && ! $isToolbarMenusDisabled() && $tools)
                             <template x-if="editor()">
@@ -121,7 +121,7 @@
                                                     <div class="border-t border-gray-950/10 dark:border-white/20 w-full"></div>
                                                 @elseif (is_array($tool))
                                                     @if(array_key_exists('button', $tool) && !is_null($tool['button']))
-                                                    <x-dynamic-component component="{{ $tool['button'] }}" :state-path="$statePath" />
+                                                        <x-dynamic-component component="{{ $tool['button'] }}" :state-path="$statePath" />
                                                     @endif
                                                 @elseif ($tool === 'blocks')
                                                     @if ($blocks && $shouldSupportBlocks)
@@ -145,32 +145,32 @@
                         @endif
 
                         @if (! $isDisabled && ! $isBubbleMenusDisabled())
-                        <template x-if="editor()">
-                            <div>
-                                <div x-ref="bubbleMenu" class="tiptap-editor-bubble-menu-wrapper">
-                                    <x-filament-tiptap-editor::menus.default-bubble-menu :state-path="$statePath" :tools="$bubbleMenuTools"/>
-                                    <x-filament-tiptap-editor::menus.link-bubble-menu :state-path="$statePath" :tools="$tools"/>
-                                    <x-filament-tiptap-editor::menus.image-bubble-menu :state-path="$statePath" :tools="$tools"/>
-                                    <x-filament-tiptap-editor::menus.table-bubble-menu :state-path="$statePath" :tools="$tools"/>
+                            <template x-if="editor()">
+                                <div>
+                                    <div x-ref="bubbleMenu" class="tiptap-editor-bubble-menu-wrapper">
+                                        <x-filament-tiptap-editor::menus.default-bubble-menu :state-path="$statePath" :tools="$bubbleMenuTools"/>
+                                        <x-filament-tiptap-editor::menus.link-bubble-menu :state-path="$statePath" :tools="$tools"/>
+                                        <x-filament-tiptap-editor::menus.image-bubble-menu :state-path="$statePath" :tools="$tools"/>
+                                        <x-filament-tiptap-editor::menus.table-bubble-menu :state-path="$statePath" :tools="$tools"/>
+                                    </div>
                                 </div>
-                            </div>
-                        </template>
+                            </template>
                         @endif
 
                         @if (! $isFloatingMenusDisabled() && filled($floatingMenuTools))
-                        <template x-if="editor()">
-                            <div>
-                                <div x-ref="floatingMenu" class="tiptap-editor-floating-menu-wrapper">
-                                    <x-filament-tiptap-editor::menus.default-floating-menu
-                                        :state-path="$statePath"
-                                        :tools="$floatingMenuTools"
-                                        :blocks="$blocks"
-                                        :should-support-blocks="$shouldSupportBlocks"
-                                        :editor="$field"
-                                    />
+                            <template x-if="editor()">
+                                <div>
+                                    <div x-ref="floatingMenu" class="tiptap-editor-floating-menu-wrapper">
+                                        <x-filament-tiptap-editor::menus.default-floating-menu
+                                                :state-path="$statePath"
+                                                :tools="$floatingMenuTools"
+                                                :blocks="$blocks"
+                                                :should-support-blocks="$shouldSupportBlocks"
+                                                :editor="$field"
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                        </template>
+                            </template>
                         @endif
 
                         <div class="flex h-full">
@@ -192,20 +192,20 @@
                             ])>
                                 {{--Main Content is here--}}
                                 <div
-                                    x-ref="element"
-                                    {{ $getExtraInputAttributeBag()->class([
-                                        'tiptap-content min-h-full'
-                                    ]) }}
+                                        x-ref="element"
+                                        {{ $getExtraInputAttributeBag()->class([
+                                            'tiptap-content min-h-full'
+                                        ]) }}
                                 ></div>
                             </div>
 
                             @if ((! $isDisabled) && ($shouldSupportBlocks || ($shouldShowMergeTagsInBlocksPanel && filled($mergeTags))))
                                 <div
-                                    x-data="{
+                                        x-data="{
                                         isCollapsed: @js($shouldCollapseBlocksPanel()),
                                     }"
-                                    class="hidden shrink-0 space-y-2 max-w-sm md:flex flex-col h-full"
-                                    x-bind:class="{
+                                        class="hidden shrink-0 space-y-2 max-w-sm md:flex flex-col h-full"
+                                        x-bind:class="{
                                         'bg-gray-50 dark:bg-gray-950/20': ! isCollapsed,
                                         'h-full': ! isCollapsed && fullScreenMode,
                                         'px-2': ! fullScreenMode,
@@ -223,15 +223,15 @@
 
                                         <button x-on:click="isCollapsed = false" x-show="isCollapsed" x-cloak type="button" class="ml-auto">
                                             <x-filament::icon
-                                                icon="heroicon-m-bars-3"
-                                                class="w-5 h-5"
+                                                    icon="heroicon-m-bars-3"
+                                                    class="w-5 h-5"
                                             />
                                         </button>
 
                                         <button x-on:click="isCollapsed = true" x-show="! isCollapsed" type="button" class="ml-auto">
                                             <x-filament::icon
-                                                icon="heroicon-m-x-mark"
-                                                class="w-5 h-5"
+                                                    icon="heroicon-m-x-mark"
+                                                    class="w-5 h-5"
                                             />
                                         </button>
                                     </div>
@@ -240,9 +240,9 @@
                                         @if ($shouldShowMergeTagsInBlocksPanel)
                                             @foreach ($mergeTags as $mergeTag)
                                                 <div
-                                                    draggable="true"
-                                                    x-on:dragstart="$event?.dataTransfer?.setData('mergeTag', @js($mergeTag))"
-                                                    class="cursor-move grid-col-1 flex items-center gap-2 rounded border text-xs px-3 py-2 bg-white dark:bg-gray-800 dark:border-gray-700"
+                                                        draggable="true"
+                                                        x-on:dragstart="$event?.dataTransfer?.setData('mergeTag', @js($mergeTag))"
+                                                        class="cursor-move grid-col-1 flex items-center gap-2 rounded border text-xs px-3 py-2 bg-white dark:bg-gray-800 dark:border-gray-700"
                                                 >
                                                     &lcub;&lcub; {{ $mergeTag }} &rcub;&rcub;
                                                 </div>
@@ -251,14 +251,14 @@
 
                                         @foreach ($blocks as $block)
                                             <div
-                                                draggable="true"
-                                                x-on:dragstart="$event?.dataTransfer?.setData('block', @js($block->getIdentifier()))"
-                                                class="cursor-move grid-col-1 flex items-center gap-2 rounded border text-xs px-3 py-2 bg-white dark:bg-gray-800 dark:border-gray-700"
+                                                    draggable="true"
+                                                    x-on:dragstart="$event?.dataTransfer?.setData('block', @js($block->getIdentifier()))"
+                                                    class="cursor-move grid-col-1 flex items-center gap-2 rounded border text-xs px-3 py-2 bg-white dark:bg-gray-800 dark:border-gray-700"
                                             >
                                                 @if ($block->getIcon())
                                                     <x-filament::icon
-                                                        :icon="$block->getIcon()"
-                                                        class="h-5 w-5"
+                                                            :icon="$block->getIcon()"
+                                                            class="h-5 w-5"
                                                     />
                                                 @endif
 
@@ -280,11 +280,111 @@
         @endpush
         @push('scripts')
             <script src="https://cdn.jsdelivr.net/npm/treeselectjs@0.13.1/dist/treeselectjs.umd.js"></script>
+
             <script>
-                // Pass options to JS
-                window.treeSelectOptions = @json($options);
+                const options = @json($options);
+
+                function findName(options, val) {
+                    // inner recursive lookup
+                    function recurse(nodes) {
+                        for (const node of nodes) {
+                            if (node.value === val) {
+                                return node.name;
+                            }
+                            if (node.children && node.children.length) {
+                                const found = recurse(node.children);
+                                if (found !== null) {
+                                    return found;
+                                }
+                            }
+                        }
+                        return null;
+                    }
+
+                    const result = recurse(options);
+                    return result === null ? val : result;
+                }
+
+
+
+                document.addEventListener('DOMContentLoaded', () => {
+                    const container = document.getElementById('category-tree');
+
+                    // if using CDN, Treeselect is on window; otherwise import it above
+                    const Treeselect = window.Treeselect || require('treeselectjs').default;
+
+                    const tree = new Treeselect({
+                        parentHtmlContainer: container,
+                        options: options,
+                        value: [],             // pre-selected values, e.g. [4]
+                        placeholder: 'Search…'
+                    });
+
+                    // capture selections into the hidden input
+                    tree.srcElement.addEventListener('input', (e) => {
+                        const selected = e.detail;
+                        document.getElementById('category_ids').value = selected;
+
+                        // console.log('Selected values:', e);
+
+                        const tiptapEl = document.querySelector('.ProseMirror');
+
+                        // test
+                        //window.tiptapEditor.chain().focus().insertContent("<h1>Akram</h1>").run();
+
+
+                        if (selected.length > 1) {
+                            const table = document.createElement('table');
+                            const thead = document.createElement('thead');
+                            const headerRow = document.createElement('tr');
+
+                            selected.forEach(id => {
+                                const th = document.createElement('th');
+                                th.textContent = findName(options, id);
+                                //th.textContent = id;
+                                headerRow.appendChild(th);
+                            });
+
+                            thead.appendChild(headerRow);
+                            table.appendChild(thead);
+
+                            const tbody = document.createElement('tbody');
+                            const bodyRow = document.createElement('tr');
+
+                            selected.forEach(id => {
+                                const td = document.createElement('td');
+                                const span = document.createElement('span');
+
+                                span.setAttribute('data-type', 'mergeTag');
+                                span.setAttribute('data-id', id);
+                                span.textContent = id;
+
+                                td.appendChild(span);
+                                bodyRow.appendChild(td);
+                            });
+
+                            tbody.appendChild(bodyRow);
+                            table.appendChild(tbody);
+                            //tiptapEl.appendChild(table);
+                            window.tiptapEditor.chain().focus().insertContent(table.outerHTML).run();
+                        }else{
+                            selected.forEach(id => {
+                                const span = document.createElement('span');
+
+                                span.setAttribute('data-type', 'mergeTag');
+                                span.setAttribute('data-id', id);
+                                span.textContent = id;
+
+                                //tiptapEl.appendChild(span);
+                                window.tiptapEditor.chain().focus().insertContent(span.outerHTML).run();
+                            });
+                        }
+
+                        tree.updateValue([]);
+                        tree.mount();
+                    });
+                });
             </script>
-            <script src="{{ asset('js/category-tree.js') }}"></script>
         @endpush
     @endif
 </x-dynamic-component>
